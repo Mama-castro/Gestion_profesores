@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carta Pago</title>
+</head>
+<body>
+    <table border='1'>
+        <tr>
+            <th>profesor</th>
+            <th>detalles</th>
+            <th>fecha_emision</th>
+            <th>documento</th>
+        </tr>
+        {% for x in cartaPago %}
+        <tr>
+            <td>{{x.perfil}}</td>
+            <td>{{x.detalles}}</td>
+            <td>{{x.fecha_emision}}</td>
+            <td>{{x.documento}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

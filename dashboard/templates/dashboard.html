@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+  <script>
+    src = "https://cdn.jsdelivr.net/npm/chart.js"
+  </script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .chart-container { width: 40%; display: inline-block; margin: 20px}
+  </style>
+</head>
+<body>
+  <h1>Dashboard de Gestion de Profesores</h1>
+  <h2>Total de Profesores: <span id="total_profesores"></span></h2>
+
+  <div class="chart-container"><canvas id="contratosChart"></canvas></div>
+  <div class="chart-container"><canvas id="categoriasChart"></canvas></div>
+
+<script>
+    async function cargarDatos(){
+    const response = await fetch('/api/dashboard/data');
+    const data = await response.json();
+
+    document.getElementByID('total_profesores').textContent = data.total_profesores;
+    new Chart(document.getElementById('contratosChart'),
+             { type: 'bar', data: { labels: Object.keys(data.contratos),
+               datesets: [{ label: 'Contratos por tipo', data: Object.values(data.contratos),
+               backgroundColor: 'blue'}]
+                    }
+              });
+    new Chart(document.getElementById('categoriasChart'),
+             { type: 'pie', data: { labels: Object.keys(data.categorias),
+               datesets: [{ label: 'Categorias Docentes', data: Object.values(data.categorias),
+               backgroundColor: ['red','green','yellow','purple']}]
+                    }
+              });
+</script>
+</body>
+</html>
